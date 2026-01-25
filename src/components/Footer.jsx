@@ -22,7 +22,9 @@ const Footer = () => {
                 <div className="flex flex-col md:flex-row justify-between items-center gap-8">
 
                     <div className="flex flex-col items-center md:items-start gap-2">
-                        <span className="text-white font-bold tracking-tight">Mrwan Khaled</span>
+                        <span className="text-white font-bold tracking-tighter">
+                            MK<span className="text-accent">.</span>
+                        </span>
                         <p className="text-[#B5B5B5]/60 text-xs tracking-wide">
                             Built with care and clarity
                         </p>

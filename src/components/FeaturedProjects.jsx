@@ -6,19 +6,22 @@ const projects = [
         title: "Inventory Management System",
         problem: "Small stores lose track of stock.",
         solution: "Real-time inventory tracking with alerts.",
-        tech: ["React", "Node.js", "PostgreSQL", "Tailwind"]
+        tech: ["React", "Node.js", "PostgreSQL", "Tailwind"],
+        image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&h=600&fit=crop"
     },
     {
         title: "EcoTrack Dashboard",
         problem: "Companies struggle to measure carbon footprint.",
         solution: "Integrated analytics for real-time sustainability monitoring.",
-        tech: ["TypeScript", "Next.js", "D3.js", "Firebase"]
+        tech: ["TypeScript", "Next.js", "D3.js", "Firebase"],
+        image: "https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=800&h=600&fit=crop"
     },
     {
         title: "SecurePay Gateway",
         problem: "High abandonment rates during payment checkout.",
         solution: "Simplified one-click payment flow with biometrics.",
-        tech: ["Native", "Stripe API", "WebAuthn", "Express"]
+        tech: ["Native", "Stripe API", "WebAuthn", "Express"],
+        image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop"
     }
 ];
 
@@ -35,42 +38,56 @@ const ProjectCard = ({ project, index }) => {
             }}
             className="group relative h-full"
         >
-            <div className="h-full bg-card-bg border border-white/5 rounded-2xl p-8 transition-all duration-700 ease-[0.22,1,0.36,1] group-hover:-translate-y-4 group-hover:scale-[1.02] group-hover:border-accent/30 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col relative overflow-hidden">
+            <div className="h-full bg-card-bg border border-white/5 rounded-2xl overflow-hidden transition-all duration-700 ease-[0.22,1,0.36,1] group-hover:-translate-y-4 group-hover:scale-[1.02] group-hover:border-accent/30 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col relative">
 
-                {/* Animated Background Mesh Tooltip */}
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                {/* Project Image */}
+                <div className="relative h-48 overflow-hidden bg-gradient-to-br from-accent/10 to-transparent">
+                    <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-card-bg via-card-bg/50 to-transparent" />
 
-                {/* Accent line on hover - more dynamic */}
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-accent to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-center" />
-
-                <h3 className="text-xl font-bold text-text-primary mb-6 leading-tight group-hover:text-accent transition-colors duration-300">
-                    {project.title}
-                </h3>
-
-                <div className="space-y-4 mb-8 flex-grow">
-                    <div className="space-y-1">
-                        <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-text-secondary/60">Problem</span>
-                        <p className="text-text-secondary text-sm leading-relaxed">
-                            {project.problem}
-                        </p>
-                    </div>
-                    <div className="space-y-1">
-                        <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-text-secondary/60">Solution</span>
-                        <p className="text-text-secondary text-sm leading-relaxed">
-                            {project.solution}
-                        </p>
-                    </div>
+                    {/* Accent line on hover */}
+                    <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-accent to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-center" />
                 </div>
 
-                <div className="flex flex-wrap gap-2">
-                    {project.tech.map((item, i) => (
-                        <span
-                            key={i}
-                            className="px-2.5 py-1 text-[10px] font-mono font-bold text-accent border border-accent/20 rounded-md bg-accent/5"
-                        >
-                            {item}
-                        </span>
-                    ))}
+                {/* Content */}
+                <div className="p-8 flex flex-col flex-grow">
+                    {/* Animated Background Mesh on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+                    <h3 className="text-xl font-bold text-text-primary mb-6 leading-tight group-hover:text-accent transition-colors duration-300 relative z-10">
+                        {project.title}
+                    </h3>
+
+                    <div className="space-y-4 mb-8 flex-grow relative z-10">
+                        <div className="space-y-1">
+                            <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-text-secondary/60">Problem</span>
+                            <p className="text-text-secondary text-sm leading-relaxed">
+                                {project.problem}
+                            </p>
+                        </div>
+                        <div className="space-y-1">
+                            <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-text-secondary/60">Solution</span>
+                            <p className="text-text-secondary text-sm leading-relaxed">
+                                {project.solution}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2 relative z-10">
+                        {project.tech.map((item, i) => (
+                            <span
+                                key={i}
+                                className="px-2.5 py-1 text-[10px] font-mono font-bold text-accent border border-accent/20 rounded-md bg-accent/5"
+                            >
+                                {item}
+                            </span>
+                        ))}
+                    </div>
                 </div>
             </div>
         </motion.div>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Home Page -->
+  <url>
+    <loc>https://mrwankhaled.vercel.app/</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrwankhaled.vercel.app/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mrwankhaled.vercel.app/" />
+  </url>
+  
+  <!-- Projects Page -->
+  <url>
+    <loc>https://mrwankhaled.vercel.app/projects</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrwankhaled.vercel.app/projects" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://mrwankhaled.vercel.app/projects" />
+  </url>
+  
+  <!-- Add individual project pages as they are created -->
+  <!-- Example:
+  <url>
+    <loc>https://mrwankhaled.vercel.app/projects/project-slug</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  -->
+  
+</urlset>

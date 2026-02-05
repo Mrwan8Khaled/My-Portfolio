@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Plus, Trash2, Edit3, Save, X } from 'lucide-react';
+import { Plus, Trash2, Edit3, Save, X, Lock } from 'lucide-react';
 import { getProjects, addProject, deleteProject } from '../utils/projectStore';
 
+const AUTH_EMAIL = 'mrwan8khaled@gmail.com';
+const AUTH_PASS = '+201061361276';
+const AUTH_KEY = 'dashboard_authenticated';
+
 const Dashboard = () => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+
     const [projects, setProjects] = useState([]);
     const [showForm, setShowForm] = useState(false);
     const [newProject, setNewProject] = useState({
@@ -14,8 +23,34 @@ const Dashboard = () => {
     });
 
     useEffect(() => {
-        setProjects(getProjects());
+        // Check if user is already authenticated
+        const authenticated = sessionStorage.getItem(AUTH_KEY);
+        if (authenticated === 'true') {
+            setIsAuthenticated(true);
+            setProjects(getProjects());
+        }
     }, []);
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+
+        if (email === AUTH_EMAIL && password === AUTH_PASS) {
+            setIsAuthenticated(true);
+            sessionStorage.setItem(AUTH_KEY, 'true');
+            setError('');
+            setProjects(getProjects());
+        } else {
+            setError('Invalid credentials. Please try again.');
+            setPassword('');
+        }
+    };
+
+    const handleLogout = () => {
+        setIsAuthenticated(false);
+        sessionStorage.removeItem(AUTH_KEY);
+        setEmail('');
+        setPassword('');
+    };
 
     const handleAdd = (e) => {
         e.preventDefault();
@@ -36,17 +71,101 @@ const Dashboard = () => {
         }
     };
 
+    // Login Form
+    if (!isAuthenticated) {
+        return (
+            <div className="min-h-screen flex items-center justify-center px-6">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="w-full max-w-md"
+                >
+                    <div className="bg-gradient-to-br from-[#1A1A1F] to-[#0E0E10] border border-white/10 rounded-2xl p-8 shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+
+                        {/* Lock Icon */}
+                        <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-accent/20 to-accent/5 rounded-2xl flex items-center justify-center">
+                            <Lock className="text-accent" size={32} />
+                        </div>
+
+                        <h1 className="text-3xl font-bold text-white text-center mb-2">
+                            Dashboard Login
+                        </h1>
+                        <p className="text-text-secondary text-center mb-8">
+                            Enter your credentials to access the dashboard
+                        </p>
+
+                        <form onSubmit={handleLogin} className="space-y-6">
+                            <div>
+                                <label className="block text-sm font-bold text-text-primary mb-2 uppercase tracking-wider">
+                                    Email
+                                </label>
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                    className="w-full px-4 py-3 bg-card-bg border border-white/10 rounded-xl text-text-primary placeholder-text-secondary/50 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all duration-300"
+                                    placeholder="your@email.com"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-bold text-text-primary mb-2 uppercase tracking-wider">
+                                    Password
+                                </label>
+                                <input
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                    className="w-full px-4 py-3 bg-card-bg border border-white/10 rounded-xl text-text-primary placeholder-text-secondary/50 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all duration-300"
+                                    placeholder="••••••••"
+                                />
+                            </div>
+
+                            {error && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="bg-red-500/10 border border-red-500/30 rounded-xl p-3 text-red-400 text-sm text-center"
+                                >
+                                    {error}
+                                </motion.div>
+                            )}
+
+                            <button
+                                type="submit"
+                                className="w-full px-8 py-4 bg-accent text-[#0E0E10] font-bold text-sm tracking-widest uppercase rounded-xl hover:shadow-[0_0_30px_rgba(79,157,255,0.4)] hover:-translate-y-0.5 transition-all duration-300 active:scale-95"
+                            >
+                                Login
+                            </button>
+                        </form>
+                    </div>
+                </motion.div>
+            </div>
+        );
+    }
+
+    // Dashboard Content (only shown when authenticated)
     return (
         <div className="min-h-screen pt-32 pb-20 px-6 container mx-auto max-w-5xl">
             <div className="flex justify-between items-center mb-12">
                 <h1 className="text-4xl font-bold text-white tracking-tight">Project Dashboard</h1>
-                <button
-                    onClick={() => setShowForm(!showForm)}
-                    className="flex items-center gap-2 px-6 py-3 bg-accent text-[#0E0E10] font-bold rounded-xl hover:shadow-[0_0_20px_rgba(79,157,255,0.4)] transition-all active:scale-95"
-                >
-                    {showForm ? <X size={20} /> : <Plus size={20} />}
-                    {showForm ? 'Cancel' : 'New Project'}
-                </button>
+                <div className="flex gap-4">
+                    <button
+                        onClick={handleLogout}
+                        className="px-6 py-3 border border-white/10 text-text-secondary hover:text-red-400 hover:border-red-400/30 font-bold rounded-xl transition-all active:scale-95"
+                    >
+                        Logout
+                    </button>
+                    <button
+                        onClick={() => setShowForm(!showForm)}
+                        className="flex items-center gap-2 px-6 py-3 bg-accent text-[#0E0E10] font-bold rounded-xl hover:shadow-[0_0_20px_rgba(79,157,255,0.4)] transition-all active:scale-95"
+                    >
+                        {showForm ? <X size={20} /> : <Plus size={20} />}
+                        {showForm ? 'Cancel' : 'New Project'}
+                    </button>
+                </div>
             </div>
 
             {showForm && (

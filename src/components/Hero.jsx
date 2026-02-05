@@ -48,7 +48,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative w-full h-[100vh] flex items-center justify-center overflow-hidden bg-transparent">
+    <section className="relative w-full h-[100vh] flex items-center justify-center overflow-hidden bg-transparent" id="home">
 
       <div className="container mx-auto px-6 z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-24">
@@ -70,6 +70,7 @@ const Hero = () => {
                 alt="Profile"
                 className="w-full h-full rounded-full object-cover border-2 border-white/10 shadow-2xl relative z-10"
                 onError={(e) => { e.target.src = 'https://github.com/github.png'; }}
+                loading='lazy'
               />
 
               {/* Cinema Mode Glow: Blurred version of the image itself */}
@@ -87,10 +88,16 @@ const Hero = () => {
               variants={itemVariants}
               className="flex flex-col sm:flex-row gap-4 w-full justify-center"
             >
-              <button className="px-8 py-3.5 bg-accent text-[#0E0E10] font-bold rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(79,157,255,0.4)] hover:-translate-y-1 active:scale-95">
+              <button
+                onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                className="px-8 py-3.5 bg-accent text-[#0E0E10] font-bold rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(79,157,255,0.4)] hover:-translate-y-1 active:scale-95"
+              >
                 View My Work
               </button>
-              <button className="px-8 py-3.5 bg-transparent border border-white/10 text-white font-bold rounded-full transition-all duration-300 hover:bg-white/5 hover:border-white/20 hover:-translate-y-1 active:scale-95">
+              <button
+                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                className="px-8 py-3.5 bg-transparent border border-white/10 text-white font-bold rounded-full transition-all duration-300 hover:bg-white/5 hover:border-white/20 hover:-translate-y-1 active:scale-95"
+              >
                 Get in Touch
               </button>
             </motion.div>

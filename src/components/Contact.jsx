@@ -260,22 +260,22 @@ const Contact = () => {
                                 transition={{ delay: 0.4 + index * 0.1 }}
                                 className="flex items-start gap-4 group"
                             >
-                                <div className="p-3 bg-accent/10 border border-accent/20 rounded-xl group-hover:bg-accent/20 transition-all duration-300">
-                                    <item.icon className="text-accent" size={24} />
+                                <div className="p-3 bg-white/5 border border-white/10 rounded-xl group-hover:bg-accent/10 group-hover:border-accent/20 transition-all duration-300">
+                                    <item.icon className="text-text-secondary group-hover:text-accent transition-colors duration-300" size={24} />
                                 </div>
-                                <div>
-                                    <p className="text-xs uppercase tracking-wider font-bold text-text-secondary/60 mb-1">
+                                <div className="flex flex-col">
+                                    <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-text-secondary opacity-60 mb-1">
                                         {item.label}
                                     </p>
                                     {item.href ? (
                                         <a
                                             href={item.href}
-                                            className="text-text-primary hover:text-accent transition-colors duration-300 font-medium"
+                                            className="text-text-primary hover:text-accent transition-colors duration-300 font-medium selection:bg-accent/20"
                                         >
                                             {item.value}
                                         </a>
                                     ) : (
-                                        <p className="text-text-primary font-medium">{item.value}</p>
+                                        <p className="text-text-primary font-medium selection:bg-accent/20">{item.value}</p>
                                     )}
                                 </div>
                             </motion.div>

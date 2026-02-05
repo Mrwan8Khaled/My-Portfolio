@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ExternalLink, X } from 'lucide-react';
 
 const BlogPopup = () => {
     const [showPopup, setShowPopup] = useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
     const STORAGE_KEY = 'blog_popup_dismissed';
-    const BLOG_URL = 'https://mrwankhaled.vercel.app/MyBlog';
+    const BLOG_URL = '/MyBlog';
 
     useEffect(() => {
+        // Don't show if user is already on the blog page
+        if (location.pathname === '/MyBlog') return;
+
         // Check if user has dismissed the popup
         const dismissed = localStorage.getItem(STORAGE_KEY);
 
@@ -22,8 +28,9 @@ const BlogPopup = () => {
     }, []);
 
     const handleYes = () => {
+        localStorage.setItem(STORAGE_KEY, 'true');
         setShowPopup(false);
-        window.open(BLOG_URL, '_blank');
+        navigate(BLOG_URL);
     };
 
     const handleNo = () => {

@@ -34,10 +34,11 @@ const Header = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '/#home', id: 'home' },
-    { name: 'About', href: '/#about', id: 'about' },
-    { name: 'Projects', href: '/#projects', id: 'projects' },
-    { name: 'Contact', href: '/#contact', id: 'contact' },
+    { name: 'Home', href: '/#home', id: 'home', type: 'scroll' },
+    { name: 'About', href: '/#about', id: 'about', type: 'scroll' },
+    { name: 'Projects', href: '/#projects', id: 'projects', type: 'scroll' },
+    { name: 'Blog', href: '/MyBlog', id: 'blog', type: 'link' },
+    { name: 'Contact', href: '/#contact', id: 'contact', type: 'scroll' },
   ];
 
   return (
@@ -57,20 +58,36 @@ const Header = () => {
           <ul className="flex items-center gap-6 md:gap-12">
             {navLinks.map((link) => (
               <li key={link.name}>
-                <a
-                  href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const element = document.getElementById(link.id);
-                    element?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className={`text-xs font-bold tracking-widest uppercase transition-all duration-300 relative group ${activeSection === link.id ? 'text-accent' : 'text-[#B5B5B5] hover:text-accent'
-                    }`}
-                >
-                  {link.name}
-                  <span className={`absolute -bottom-1 left-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full ${activeSection === link.id ? 'w-full' : 'w-0'
-                    }`} />
-                </a>
+                {link.type === 'scroll' ? (
+                  <a
+                    href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (location.pathname !== '/') {
+                        window.location.href = link.href;
+                        return;
+                      }
+                      const element = document.getElementById(link.id);
+                      element?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className={`text-xs font-bold tracking-widest uppercase transition-all duration-300 relative group ${activeSection === link.id ? 'text-accent' : 'text-[#B5B5B5] hover:text-accent'
+                      }`}
+                  >
+                    {link.name}
+                    <span className={`absolute -bottom-1 left-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full ${activeSection === link.id ? 'w-full' : 'w-0'
+                      }`} />
+                  </a>
+                ) : (
+                  <Link
+                    to={link.href}
+                    className={`text-xs font-bold tracking-widest uppercase transition-all duration-300 relative group ${location.pathname === link.href ? 'text-accent' : 'text-[#B5B5B5] hover:text-accent'
+                      }`}
+                  >
+                    {link.name}
+                    <span className={`absolute -bottom-1 left-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full ${location.pathname === link.href ? 'w-full' : 'w-0'
+                      }`} />
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

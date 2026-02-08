@@ -37,8 +37,8 @@ const Header = () => {
     { name: 'Home', href: '/#home', id: 'home', type: 'scroll' },
     { name: 'About', href: '/#about', id: 'about', type: 'scroll' },
     { name: 'Projects', href: '/#projects', id: 'projects', type: 'scroll' },
-    { name: 'Blog', href: '/MyBlog', id: 'blog', type: 'link' },
     { name: 'Contact', href: '/#contact', id: 'contact', type: 'scroll' },
+    { name: 'Blog', href: '/MyBlog', id: 'blog', type: 'link' },
   ];
 
   return (
